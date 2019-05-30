@@ -33,9 +33,11 @@ const TodoForm = (props) => {
     return (
         <div className = 'form-container'>
          <form onSubmit = {props.addTodo}>
-           <input placeholder = 'Todo' onChange = {props.onChange} value = {props.task} name = 'task'></input>
+           <input placeholder = 'Todo' onChange = {props.onChange} value = {props.task}  name = 'task'></input>
+           
              <button onClick = {props.addTodo}>Add Todo</button>
              <button onClick = {props.removeComplete}>Clear Completed</button>
+            
       </form>
     </div>
 
