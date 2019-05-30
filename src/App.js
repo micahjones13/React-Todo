@@ -1,7 +1,10 @@
 import React from 'react';
 import{todoArr} from './components/TodoComponents/TodoData';
-import Todo from './components/TodoComponents/Todo';
 import TodoForm from './components/TodoComponents/TodoForm';
+import TodoList from './components/TodoComponents/TodoList';
+
+import './components/TodoComponents/Todo.css';
+
 
 
 class App extends React.Component {
@@ -27,6 +30,8 @@ class App extends React.Component {
     const newItem = {
       // todoItem: this.state.todoItem,
       task: this.state.task,
+      id: Date.now(),
+      completed: false
     };
       this.setState({
         todoData: [...this.state.todoData, newItem]
@@ -42,22 +47,74 @@ class App extends React.Component {
     })
   }
   
+  toggleItem = id => {
+    //loop through this.state.todoData
+    //find the item that was clicked 
+    //toggle the completed prop
+
+    //
+    this.setState(prevState => {
+      return {
+        //map through todoData
+        todoData: prevState.todoData.map (item => {
+          //if the current item id === the id of the item clicked, return the item but have the completed prop be true
+          if (item.id === id) {
+            return {
+              ...item,
+              completed: !item.completed
+            };
+            //if the id doesn't match, then don't do anything to the current item
+          } else {
+            return item;
+          }
+        })
+      };
+    });
+
+  };
+
+  removeComplete = (event) => {
+    //prevent the button from acting like a dumb button and refreshing
+    event.preventDefault();
+    //remove any Todo that has a completed status of true or false apparently?
+    //set state using prevState
+    this.setState(prevState => {
+      return {
+        //filter through todoData(the array that holds all items)
+        todoData: prevState.todoData.filter(item => {
+          //if the current item has a complted bool value of true, set it's task to null, thus not displaying anything
+          //remember, the default of completed is false. so !item.completed means if the item.completed is opposite of false, thus true
+          if (!item.completed){
+            return{
+              //use spread operator to keep the array intact, just add onto it
+              ...item,
+              task: null
+            };
+          } 
+        })
+      }
+    })
+
+  }
+
   render() {
     return (
-      <div>
-        <h2>Welcome to your Todo App!</h2>
-        <div>
-        {
-            
-            this.state.todoData.map(itemFromMap => (
-              <Todo todoOnProps = {itemFromMap} />
-            ))
-          
-        }
+      <div className = 'container'>
+        <h1>Welcome to your Todo App!</h1>
+        <div className = 'todo-container'>
+        <TodoList 
+          todoData = {this.state.todoData}
+          toggleItem = {this.toggleItem}
+        />
         </div>
         
         
-        <TodoForm addTodo = {this.addTodo} onChange  = {this.handleChanges} value = {this.state.task}  /> 
+        <TodoForm 
+          addTodo = {this.addTodo} 
+          onChange  = {this.handleChanges} 
+          value = {this.state.task} 
+          removeComplete ={this.removeComplete} 
+         /> 
           
 
       </div>
