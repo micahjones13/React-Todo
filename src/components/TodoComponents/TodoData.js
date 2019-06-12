@@ -3,19 +3,19 @@
 export const todoArr = [
     {
         task: 'Learn React',
-        id: '',
+        id: 123,
         completed: false
 
     },
 
     {
         task: 'Play Video Games',
-        id: '',
+        id: 124,
         completed: false
     },
     {
         task: 'Make Dinner',
-        id: '', 
+        id: 125, 
         completed: false
     }
 

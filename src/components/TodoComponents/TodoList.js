@@ -14,35 +14,52 @@
     // </div>
 
 import React from 'react';
-import {todoArr} from './TodoData';
+// import {todoArr} from './TodoData';
 import Todo from './Todo';
 
-class TodoList extends React.Component {
-    constructor(){
-        super();
-        this.state = {
-          todoData: todoArr,
-         
-        }
-    
-    
-      }
-
-render(){
-    return(
-        <div>
-        {
-            
-            this.state.todoData.map(itemFromMap => (
-              <Todo todoOnProps = {itemFromMap} />
-            ))
-          
-        }
+const TodoList = props => {
+    return (
+        <div className = 'list'>
+            {props.todoData.map(item => {
+                return(
+                    <Todo
+                        key = {item.id}
+                        toggleItem={props.toggleItem}
+                        item={item}
+                    />
+                );
+            })}
         </div>
-    );
+
+    )
 }
 
-}
+// class TodoList extends React.Component {
+//     constructor(){
+//         super();
+//         this.state = {
+//           todoData: todoArr,
+         
+//         }
+    
+    
+//       }
+
+// render(){
+//     return(
+//         <div>
+//         {
+            
+//             this.state.todoData.map(itemFromMap => (
+//               <Todo todoOnProps = {itemFromMap} />
+//             ))
+          
+//         }
+//         </div>
+//     );
+// }
+
+// }
 
 export default TodoList;
 
